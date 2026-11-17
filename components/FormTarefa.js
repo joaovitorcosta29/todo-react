@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function FormTarefa(aoAdicionar) {
     const [texto, setTexto] = useState("");
-    const [error, setErro] = useState("");
+    const [erro, setErro] = useState("");
     
     const enviar = (event) => {
         event.preventDefault();
@@ -19,7 +19,9 @@ export default function FormTarefa(aoAdicionar) {
 
     return(
         <form className="formulario" onSubmit={enviar}>
-            <input value={texto} onChange={(event) => setTexto(event.target.value)} />
+            <input value={texto} onChange={(evento) => setTexto(event.target.value)} />
+            {erro !== "" && <p className="erro">{erro}</p>}
+            <button type="submit">Adicionar</button>
         </form>
     )
 }
