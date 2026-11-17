@@ -2,6 +2,7 @@
 import { useState } from "react";
 import { tarefasIniciais } from "./dados";
 import TarefaItem from "./TarefaItem";
+import FormTarefa from "./FormTarefa";
 
 export default function ListaDeTarefas() {
   const [tarefas, setTarefas] = useState(tarefasIniciais);
@@ -12,6 +13,10 @@ export default function ListaDeTarefas() {
         tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa,
       ),
     );
+  };
+
+  const excluir = (id) => {
+    setTarefas(tarefas.filter((tarefa) => tarefa.id !== id));
   };
 
   const adicionar = (descricao) => {
