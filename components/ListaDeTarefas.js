@@ -7,11 +7,12 @@ import FormTarefa from "./FormTarefa";
 export default function ListaDeTarefas() {
   const [tarefas, setTarefas] = useState(tarefasIniciais);
   const [filtro, setFiltro] = useState("todas");
-  
+
   const concluir = (id) => {
     setTarefas(
       tarefas.map((tarefa) =>
-        tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa),
+        tarefa.id === id ? { ...tarefa, concluida: !tarefa.concluida } : tarefa,
+      ),
     );
   };
 
@@ -19,26 +20,34 @@ export default function ListaDeTarefas() {
     setTarefas(tarefas.filter((tarefa) => tarefa.id !== id));
   };
 
-  const adicionar = (descricao) => {
-    const nova = { id: Date.now(), descricao: descricao, concluida: false };
+  const adicionar = (descricao, prioridade) => {
+    const nova = { id: Date.now(), descricao: descricao, concluida: false, prioridade: prioridade };
     setTarefas([...tarefas, nova]);
+  };
+
+  const editar = (id, descricao) => {
+    setTarefas(
+      tarefas.map((tarefa) => 
+        tarefa.id === id ? { ...tarefa, descricao: descricao } : tarefa
+      ),
+    );
   };
 
   const totalConcluidas = tarefas.filter((tarefa) => tarefa.concluida).length;
 
   const limparConcluidas = () => {
     setTarefas(tarefas.filter((tarefa) => !tarefa.concluida));
-  }
+  };
   const tarefasFiltradas = tarefas.filter((tarefa) => {
-    if(filtro === "pendentes") return !tarefa.concluida;
-    if(filtro === "concluidas") return tarefa.concluida;
+    if (filtro === "pendentes") return !tarefa.concluida;
+    if (filtro === "concluidas") return tarefa.concluida;
     return true;
   });
 
   const FILTROS = [
-    {valor: "todas", texto: "Todas"},
-    {valor: "pendentes", texto: "Pendentes"},
-    {valor: "concluidas", texto: "Concluídas"},
+    { valor: "todas", texto: "Todas" },
+    { valor: "pendentes", texto: "Pendentes" },
+    { valor: "concluidas", texto: "Concluídas" },
   ];
 
   return (
@@ -51,7 +60,16 @@ export default function ListaDeTarefas() {
       </div>
       <div className="filtros">
         {FILTROS.map((item) => (
-          <button key={item.valor} type="button" className={filtro === item.valor ? "botao-secundario ativo" : "botao-secundario"} onClick={() => setFiltro(item.valor)}>
+          <button
+            key={item.valor}
+            type="button"
+            className={
+              filtro === item.valor
+                ? "botao-secundario ativo"
+                : "botao-secundario"
+            }
+            onClick={() => setFiltro(item.valor)}
+          >
             {item.texto}
           </button>
         ))}
@@ -66,12 +84,18 @@ export default function ListaDeTarefas() {
               tarefa={tarefa}
               aoConcluir={concluir}
               aoExcluir={excluir}
+              aoEditar={editar}
             />
           ))}
         </ul>
       )}
       <div className="resumo">
-        <button type="button" className="botao-secundario" onClick={limparConcluidas} disabled={totalConcluidas === 0}>
+        <button
+          type="button"
+          className="botao-secundario"
+          onClick={limparConcluidas}
+          disabled={totalConcluidas === 0}
+        >
           Limpar concluídas
         </button>
       </div>
