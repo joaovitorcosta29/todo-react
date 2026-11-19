@@ -10,7 +10,6 @@ const PRIORIDADES = {
 
 export default function TarefaItem({
   tarefa,
-  aoConcluir,
   aoExcluir,
   aoEditar,
 }) {

@@ -1,8 +1,10 @@
+import styles from "./Cabecalho.module.css";
+
 export default function Cabecalho({titulo, subtitulo}) {
   return (
     <>
-    <header className="cabecalho" style={{ textAlign: "center" }}>
-      <h1>{titulo}</h1>
+    <header className={styles.cabecalho} style={{ textAlign: "center" }}>
+      <h1 className={styles.titulo}>{titulo}</h1>
       <p>{subtitulo}</p>
     </header>
     </>

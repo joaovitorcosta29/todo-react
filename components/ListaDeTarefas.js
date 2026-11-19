@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { tarefasIniciais } from "./dados";
+import { tarefasIniciais } from "@/dados/tarefas";
 import TarefaItem from "./TarefaItem";
 import FormTarefa from "./FormTarefa";
 
